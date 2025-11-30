@@ -1,0 +1,14 @@
+[language-server.rust-analyzer.config]
+cargo = { features = "all" }
+check = { command = "clippy", extraArgs = [
+  "--",
+  "-D", "clippy::all",
+  "-W", "clippy::pedantic",
+  "-W", "clippy::nursery",
+  "-A", "clippy::cast_possible_truncation",
+  "-A", "clippy::cast_sign_loss",
+  "-A", "clippy::cast_precision_loss",
+  "-A", "clippy::missing_panics_doc",
+  "-A", "clippy::missing_errors_doc",
+  "-A", "clippy::must_use_candidate",
+] }
