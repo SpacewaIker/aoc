@@ -1,7 +1,7 @@
 use aoc_runner_derive::aoc;
 
 #[aoc(day1, part1)]
-pub fn solve_part1(input: &str) -> i32 {
+fn solve_part1(input: &str) -> i32 {
     input
         .chars()
         .map(|c| match c {
@@ -13,7 +13,7 @@ pub fn solve_part1(input: &str) -> i32 {
 }
 
 #[aoc(day1, part2)]
-pub fn solve_part2(input: &str) -> usize {
+fn solve_part2(input: &str) -> usize {
     let mut floor = 0;
     for (idx, c) in input.chars().enumerate() {
         floor += match c {
