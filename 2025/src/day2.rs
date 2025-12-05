@@ -27,7 +27,7 @@ fn solve_part1(input: &[(u64, u64)]) -> u64 {
 
 fn is_valid_id_1(id: u64) -> bool {
     let digits = 1 + id.ilog10();
-    if digits % 2 == 0 {
+    if digits.is_multiple_of(2) {
         let divider = 10u64.pow(digits / 2);
         let (first, second) = id.div_rem_euclid(&divider);
         first != second
@@ -43,7 +43,7 @@ fn is_valid_id_2(id: u64) -> bool {
     }
     let mut dividers = Vec::new();
     for divider in 2..=(id.len() / 2).max(2) {
-        if id.len() % divider == 0 {
+        if id.len().is_multiple_of(divider) {
             dividers.push(divider);
         }
     }
