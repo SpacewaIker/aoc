@@ -12,6 +12,7 @@ euclid = "0.22.11"
 indicatif = { version = "0.18.3", features = ["rayon"] }
 itertools = "0.14.0"
 pathfinding = "4.14.0"
+petgraph = "0.8.3"
 rayon = "1.11.0"
 regex = "1.12.2"
 rstest = "0.26.1"

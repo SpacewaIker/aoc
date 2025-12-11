@@ -61,6 +61,8 @@ fn solve_part2(input: &ParsedInput) -> u64 {
             // vertical
             let y_min = y1.min(y2);
             let y_max = y1.max(y2);
+
+            #[allow(clippy::needless_range_loop)]
             for y in y_min..=y_max {
                 scale_map[y][x1] = true;
             }
