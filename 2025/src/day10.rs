@@ -1,4 +1,5 @@
 use aoc_runner_derive::{aoc, aoc_generator};
+use good_lp::{Expression, Solution, SolverModel, microlp, variables};
 use itertools::Itertools;
 use winnow::{
     Parser,
@@ -77,8 +78,30 @@ impl Machine {
             .unwrap()
     }
 
-    fn joltage_fewest_presses(&self) -> usize {
-        todo!("Linear programming!")
+    fn joltage_fewest_presses(&self) -> u64 {
+        variables! { problem:
+            0 <= button_vars[self.buttons.len()] (integer);
+        }
+        let objective = button_vars.iter().sum::<Expression>();
+        let mut problem = problem.minimise(objective).using(microlp);
+
+        for (target_idx, &target) in self.joltage.iter().enumerate() {
+            let mut expression = Expression::with_capacity(self.buttons.len());
+
+            for (i, button) in self.buttons.iter().enumerate() {
+                if button.contains(&target_idx) {
+                    expression += button_vars[i];
+                }
+            }
+
+            problem.add_constraint(expression.eq(target));
+        }
+
+        let solution = problem.solve().unwrap();
+        button_vars
+            .into_iter()
+            .map(|var| solution.value(var).round() as u64)
+            .sum()
     }
 }
 
@@ -98,7 +121,7 @@ fn solve_part1(input: &ParsedInput) -> usize {
 }
 
 #[aoc(day10, part2)]
-fn solve_part2(input: &ParsedInput) -> usize {
+fn solve_part2(input: &ParsedInput) -> u64 {
     input.iter().map(Machine::joltage_fewest_presses).sum()
 }
 
@@ -122,10 +145,14 @@ mod tests {
     #[case("[.##.] (3) (1,3) (2) (2,3) (0,2) (0,1) {3,5,4,7}", 10)]
     #[case("[...#.] (0,2,3,4) (2,3) (0,4) (0,1,2) (1,2,3,4) {7,5,12,7,2}", 12)]
     #[case("[.###.#] (0,1,2,3,4) (0,3,4) (0,1,2,4,5) (1,2) {10,11,11,5,10,5}", 11)]
-    fn test_day10_machine_joltage_fewest_presses(#[case] input: &str, #[case] expected: usize) {
+    #[case(
+        "[####...##.] (1,4,6,7,8) (0,1,2,3,6,7,8,9) (1,3,4,8) (3,5,7,9) (0,1,2,4,5,7,8,9) (0,1,2,4,8,9) (0,1,2,3,4,5,7,9) (4,6) (8) {33,63,33,28,77,28,32,44,60,37}",
+        86
+    )]
+    fn test_day10_machine_joltage_fewest_presses(#[case] input: &str, #[case] expected: u64) {
         let machine = Machine::parse(input).unwrap();
         dbg!(&machine);
-        assert_eq!(machine.lights_fewest_presses(), expected);
+        assert_eq!(machine.joltage_fewest_presses(), expected);
     }
 
     #[test]

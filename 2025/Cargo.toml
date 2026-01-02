@@ -9,6 +9,7 @@ aoc-runner-derive = "0.3.0"
 average = "0.16.0"
 cached = "0.56.0"
 euclid = "0.22.11"
+good_lp = { version = "1.13", features = ["microlp"], default-features = false }
 indicatif = { version = "0.18.3", features = ["rayon"] }
 itertools = "0.14.0"
 pathfinding = "4.14.0"
