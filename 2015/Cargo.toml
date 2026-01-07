@@ -11,6 +11,7 @@ cached = "0.56.0"
 euclid = "0.22.11"
 indicatif = { version = "0.18.3", features = ["rayon"] }
 itertools = "0.14.0"
+md5 = "0.8.0"
 pathfinding = "4.14.0"
 rayon = "1.11.0"
 regex = "1.12.2"
