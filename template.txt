@@ -1,0 +1,41 @@
+use aoc_runner_derive::{aoc, aoc_generator};
+
+type ParsedInput = ();
+
+#[aoc_generator(dayX)]
+fn input_generator(input: &str) -> ParsedInput {
+    todo!()
+}
+
+#[aoc(dayX, part1)]
+fn solve_part1(input: &ParsedInput) -> u32 {
+    todo!()
+}
+
+#[aoc(dayX, part2)]
+fn solve_part2(input: &ParsedInput) -> u32 {
+    todo!()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn test_dayX_part1() {
+        let input = "";
+        let parsed = input_generator(input);
+        let expected = 0;
+
+        assert_eq!(solve_part1(&parsed), expected);
+    }
+
+    #[test]
+    fn test_dayX_part2() {
+        let input = "";
+        let parsed = input_generator(input);
+        let expected = 0;
+
+        assert_eq!(solve_part2(&parsed), expected);
+    }
+}
